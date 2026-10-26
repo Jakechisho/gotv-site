@@ -92,19 +92,19 @@ export const markets: Record<string, Market> = {
     subhead:
       "Traders are pricing this race at a coin flip. Coin flips don’t decide elections. Turnout does.",
     chartDescription:
-      "Line chart of simulated odds for Candidate A and Candidate B. Both lines hover near 50 percent for the whole period, crossing several times, ending at 51 and 49 percent.",
+      "Line chart of simulated odds for James Talarico and Ken Paxton. Both lines hover near 50 percent for the whole period, crossing several times, ending at 51 and 49 percent.",
     seed: 7,
     series: [
-      { name: "Candidate A", color: "#2d6af6", start: 46, end: 51 },
-      { name: "Candidate B", color: "#f2810c", start: 54, end: 49 },
+      { name: "James Talarico (D)", color: "#2d6af6", start: 46, end: 51 },
+      { name: "Ken Paxton (R)", color: "#e23b3b", start: 54, end: 49 },
     ],
     outcomes: [
       {
         kind: "market",
         id: "a",
-        name: "Candidate A",
-        detail: "$2,406,112 Vol.",
-        initials: "A",
+        name: "James Talarico (D)",
+        detail: "Democrat · $2,406,112 Vol.",
+        initials: "JT",
         color: "#2d6af6",
         chance: 51,
         change: 2,
@@ -114,10 +114,10 @@ export const markets: Record<string, Market> = {
       {
         kind: "market",
         id: "b",
-        name: "Candidate B",
-        detail: "$2,388,904 Vol.",
-        initials: "B",
-        color: "#f2810c",
+        name: "Ken Paxton (R)",
+        detail: "Republican · $2,388,904 Vol.",
+        initials: "KP",
+        color: "#e23b3b",
         chance: 49,
         change: -2,
         yesPrice: 49,
@@ -159,8 +159,8 @@ export const markets: Record<string, Market> = {
     ],
     trade: {
       question: "Texas Senate Election Winner",
-      yesLabel: "Candidate A",
-      noLabel: "Candidate B",
+      yesLabel: "Talarico",
+      noLabel: "Paxton",
       yesPrice: 51,
       noPrice: 49,
     },

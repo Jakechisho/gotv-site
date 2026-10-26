@@ -9,13 +9,13 @@ import { Flash } from "./Live";
 import { VoteLink } from "./VoteLink";
 
 const A = "#2d6af6";
-const B = "#f2810c";
+const B = "#e23b3b";
 
 function ChamberTile({ c }: { c: Chamber }) {
   const { drift } = useLive(c.key);
   const a = liveChance(c.a, drift, 0);
   return (
-    <VoteLink className="mt-tile" aria-label={`${c.label} control: ${a} to ${100 - a}. Opens Vote.gov`}>
+    <VoteLink className="mt-tile" aria-label={`${c.label} control: Democrats ${a}%, Republicans ${100 - a}%. Opens Vote.gov`}>
       <span className="mt-tile-label">{c.label}</span>
       <Flash value={a} className="mt-tile-big">
         {a}%
@@ -25,8 +25,8 @@ function ChamberTile({ c }: { c: Chamber }) {
         <span style={{ width: `${100 - a}%`, background: B }} />
       </span>
       <span className="mt-tile-foot">
-        <span>Side A {a}%</span>
-        <span>Side B {100 - a}%</span>
+        <span>Democrats {a}%</span>
+        <span>Republicans {100 - a}%</span>
       </span>
     </VoteLink>
   );
@@ -50,9 +50,9 @@ function SeatCard({ c }: { c: Chamber }) {
         <i style={{ left: `${(s.toWin / s.total) * 100}%` }} />
       </div>
       <div className="mt-seat-legend">
-        <span><b style={{ color: A }}>{s.a}</b> Side A</span>
+        <span><b style={{ color: A }}>{s.a}</b> Democrats</span>
         <span className="mt-towin">{s.toWin} to win</span>
-        <span>Side B <b style={{ color: B }}>{s.b}</b></span>
+        <span>Republicans <b style={{ color: B }}>{s.b}</b></span>
       </div>
       <p className="mt-open-note">
         <b>{open} seats</b> are still open. Polls and markets can’t fill them. Voters do.
@@ -96,11 +96,11 @@ function RaceCard({ r }: { r: (typeof keyRaces)[number] }) {
     <>
       <span className="mt-race-title">{r.title}</span>
       <span className="mt-race-row">
-        <span><i style={{ background: A }} />Candidate A</span>
+        <span><i style={{ background: A }} />{r.dem} (D)</span>
         <Flash value={a}>{a}%</Flash>
       </span>
       <span className="mt-race-row">
-        <span><i style={{ background: B }} />Candidate B</span>
+        <span><i style={{ background: B }} />{r.rep} (R)</span>
         <span>{100 - a}%</span>
       </span>
       <span className="mt-split" aria-hidden="true">
