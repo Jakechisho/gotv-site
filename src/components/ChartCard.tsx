@@ -2,6 +2,7 @@
 
 import { useEffect, useId, useMemo, useRef, useState } from "react";
 import type { Market } from "@/lib/markets";
+import { liveChance, liveVolume, useLive } from "@/lib/live";
 import { CHART_NOW, RANGES, RANGE_WINDOW, formatTick, simulate, type Range } from "@/lib/series";
 
 const PAD = { top: 12, right: 44, bottom: 26, left: 4 };
@@ -31,13 +32,20 @@ export function ChartCard({ market }: { market: Market }) {
   const liveId = useId();
 
   const { points, stepMinutes } = RANGE_WINDOW[range];
-  const data = useMemo(
+  const live = useLive(market.slug);
+  const baseData = useMemo(
     () =>
       market.series.map((s, i) =>
         simulate(s, market.seed * 31 + i * 7 + RANGES.indexOf(range) * 101, points),
       ),
     [market, range, points],
   );
+  // The newest point follows the live drift so the line's tip moves with the odds.
+  const data = baseData.map((values, i) => {
+    const copy = values.slice();
+    copy[copy.length - 1] = liveChance(market.series[i].end, live.drift, i);
+    return copy;
+  });
   const times = useMemo(
     () => Array.from({ length: points }, (_, i) => CHART_NOW - (points - 1 - i) * stepMinutes * 60_000),
     [points, stepMinutes],
@@ -183,7 +191,7 @@ export function ChartCard({ market }: { market: Market }) {
       </p>
 
       <div className="chart-footer">
-        <span className="chart-volume">{market.volume} Vol.</span>
+        <span className="chart-volume">{liveVolume(market.volume, live.volume)} Vol.</span>
         <div className="range-controls" role="group" aria-label="Chart time range">
           {RANGES.map((r) => (
             <button

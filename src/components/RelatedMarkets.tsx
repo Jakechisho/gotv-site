@@ -1,15 +1,8 @@
 import Link from "next/link";
 import { getMarket, leadChance, type RelatedCard } from "@/lib/markets";
 import { CategoryIcon } from "./Icons";
+import { LiveGauge, LiveVolume } from "./Live";
 import { VoteLink } from "./VoteLink";
-
-function Gauge({ value }: { value: number }) {
-  return (
-    <span className="gauge" aria-hidden="true" style={{ ["--v" as string]: value }}>
-      <span>{value}%</span>
-    </span>
-  );
-}
 
 export function RelatedMarkets({ cards }: { cards: RelatedCard[] }) {
   return (
@@ -27,11 +20,13 @@ export function RelatedMarkets({ cards }: { cards: RelatedCard[] }) {
                   <div className="related-top">
                     <CategoryIcon name={m.icon} size={40} />
                     <span className="related-title">{m.cardTitle}</span>
-                    <Gauge value={chance} />
+                    <LiveGauge slug={m.slug} base={chance} />
                   </div>
                   <div className="related-bottom">
                     <span className="related-cat">{m.category}</span>
-                    <span>{m.volume} Vol.</span>
+                    <span>
+                      <LiveVolume slug={m.slug} base={m.volume} /> Vol.
+                    </span>
                   </div>
                 </Link>
               </li>
@@ -43,7 +38,7 @@ export function RelatedMarkets({ cards }: { cards: RelatedCard[] }) {
                 <div className="related-top">
                   <CategoryIcon name={card.icon} size={40} />
                   <span className="related-title">{card.title}</span>
-                  <Gauge value={card.chance} />
+                  <LiveGauge slug={`vote:${card.title}`} base={card.chance} />
                 </div>
                 <div className="related-pills" aria-hidden="true">
                   <span className="pill yes">{card.yes}</span>
@@ -51,7 +46,9 @@ export function RelatedMarkets({ cards }: { cards: RelatedCard[] }) {
                 </div>
                 <div className="related-bottom">
                   <span className="related-cat">Opens Vote.gov</span>
-                  <span>{card.volume} Vol.</span>
+                  <span>
+                    <LiveVolume slug={`vote:${card.title}`} base={card.volume} /> Vol.
+                  </span>
                 </div>
               </VoteLink>
             </li>

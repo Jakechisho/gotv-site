@@ -1659,7 +1659,7 @@ button {
   padding-bottom: 48px;
 }
 
-.trending-head h1 {
+.trending-head h2 {
   font-size: 24px;
   font-weight: 700;
 }
@@ -1711,5 +1711,179 @@ button {
 @media (max-width: 639px) {
   .trending-grid {
     grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ---------- Live movement ---------- */
+
+.flash {
+  border-radius: 4px;
+  transition: background-color 0.6s, color 0.6s;
+}
+
+.flash-up {
+  color: var(--green);
+  background: var(--green-bg);
+}
+
+.flash-down {
+  color: var(--red);
+  background: var(--red-bg);
+}
+
+/* ---------- Homepage hero ---------- */
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  gap: 32px;
+  padding: 28px;
+}
+
+.hero-kicker {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-3);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.hero-title-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 14px;
+}
+
+.hero-title {
+  font-size: 40px;
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+}
+
+.hero-sub {
+  display: inline-block;
+  margin-top: 4px;
+  color: var(--text-3);
+  font-weight: 500;
+}
+
+.hero-sub:hover {
+  color: var(--blue);
+}
+
+.hero-outcomes {
+  margin: 22px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hero-outcomes li {
+  display: grid;
+  grid-template-columns: 10px minmax(0, 1fr) 56px 92px 92px;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+}
+
+.hero-outcomes li + li {
+  border-top: 1px solid var(--border);
+}
+
+.hero-outcome-name {
+  font-weight: 600;
+}
+
+.hero-outcome-chance {
+  font-size: 18px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  padding: 0 2px;
+}
+
+.hero-outcomes .price-btn {
+  min-height: 38px;
+  font-size: 13px;
+}
+
+.hero-reveal .reveal-label {
+  color: var(--green);
+  font-size: 13px;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.hero-reveal .price-btn.vote {
+  grid-column: 4 / 6;
+}
+
+.hero-foot {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+  color: var(--text-3);
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+
+.hero-chart {
+  display: flex;
+  align-items: center;
+}
+
+.hero-chart svg {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+@media (max-width: 1023px) {
+  .hero {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  .hero-chart {
+    order: -1;
+  }
+}
+
+@media (max-width: 639px) {
+  .hero {
+    padding: 18px 16px;
+  }
+
+  .hero-title {
+    font-size: 30px;
+  }
+
+  .hero-outcomes li {
+    grid-template-columns: 10px minmax(0, 1fr) minmax(0, 1fr);
+    row-gap: 8px;
+  }
+
+  .hero-outcomes .price-btn,
+  .hero-reveal .price-btn.vote {
+    grid-column: auto;
+  }
+
+  .hero-outcomes li > .price-btn.yes {
+    grid-column: 1 / 3;
+  }
+
+  .hero-outcomes li > .price-btn.no {
+    grid-column: 3 / 4;
+  }
+
+  .hero-reveal .price-btn.vote {
+    grid-column: 1 / -1;
   }
 }

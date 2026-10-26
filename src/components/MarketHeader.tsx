@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import type { Market } from "@/lib/markets";
+import { LiveVolume } from "./Live";
 import { BookmarkIcon, CategoryIcon, ChevronIcon, ClockIcon, ShareIcon } from "./Icons";
 
 export function MarketHeader({ market }: { market: Market }) {
@@ -58,7 +59,9 @@ export function MarketHeader({ market }: { market: Market }) {
               <span className="live-dot" aria-hidden="true" />
               Live
             </span>
-            <span>{market.volume} Vol.</span>
+            <span>
+              <LiveVolume slug={market.slug} base={market.volume} /> Vol.
+            </span>
             <span className="meta-date">
               <ClockIcon size={14} /> {market.endDate}
             </span>

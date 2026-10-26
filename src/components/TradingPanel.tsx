@@ -2,6 +2,7 @@
 
 import { useId, useState } from "react";
 import type { Market } from "@/lib/markets";
+import { useLive } from "@/lib/live";
 import { VoteLink } from "./VoteLink";
 
 const CHIPS = [1, 20, 100];
@@ -11,7 +12,8 @@ function money(n: number) {
 }
 
 export function TradingPanel({ market }: { market: Market }) {
-  const { trade } = market;
+  const { drift } = useLive(market.slug);
+  const trade = { ...market.trade, yesPrice: market.trade.yesPrice + drift, noPrice: market.trade.noPrice - drift };
   const [side, setSide] = useState<"buy" | "sell">("buy");
   const [pick, setPick] = useState<"yes" | "no">("yes");
   const [amount, setAmount] = useState("");
