@@ -2,9 +2,9 @@ import Link from "next/link";
 import { CategoryIcon } from "@/components/Icons";
 import { Disclosure } from "@/components/Disclosure";
 import { VoteLink } from "@/components/VoteLink";
-import { HeroCard } from "@/components/HeroCard";
+import { MidtermsHero } from "@/components/MidtermsHero";
 import { LiveChance, LiveGauge, LiveVolume } from "@/components/Live";
-import { leadChance, marketList, markets } from "@/lib/markets";
+import { leadChance, marketList } from "@/lib/markets";
 
 export const metadata = { title: "Trending markets" };
 
@@ -12,7 +12,7 @@ export const metadata = { title: "Trending markets" };
 export default function TrendingPage() {
   return (
     <div className="container trending">
-      <HeroCard market={markets.politics} />
+      <MidtermsHero />
       <div className="trending-head">
         <h2>Trending markets</h2>
         <p>All open markets. Odds are simulated; outcomes are decided by voters.</p>

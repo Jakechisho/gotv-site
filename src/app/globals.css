@@ -1731,159 +1731,305 @@ button {
   background: var(--red-bg);
 }
 
-/* ---------- Homepage hero ---------- */
+/* ---------- Midterms hub ---------- */
 
-.hero {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
-  gap: 32px;
-  padding: 28px;
+.mt {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
-.hero-kicker {
+.mt-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 12px 0 4px;
+}
+
+.mt-kicker {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   color: var(--text-3);
   font-size: 13px;
-  font-weight: 500;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
-.hero-title-row {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  margin-top: 14px;
-}
-
-.hero-title {
-  font-size: 40px;
+.mt-title {
+  margin-top: 10px;
+  font-size: clamp(40px, 6.5vw, 76px);
   font-weight: 800;
-  line-height: 1.05;
-  letter-spacing: -0.03em;
+  line-height: 0.98;
+  letter-spacing: -0.04em;
 }
 
-.hero-sub {
-  display: inline-block;
-  margin-top: 4px;
-  color: var(--text-3);
-  font-weight: 500;
+.mt-sub {
+  margin-top: 12px;
+  max-width: 58ch;
+  color: var(--text-2);
+  font-size: 17px;
 }
 
-.hero-sub:hover {
-  color: var(--blue);
+.mt-head-cta {
+  min-height: 48px;
+  padding: 0 22px;
+  font-size: 15px;
 }
 
-.hero-outcomes {
-  margin: 22px 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-.hero-outcomes li {
+.mt-tiles {
   display: grid;
-  grid-template-columns: 10px minmax(0, 1fr) 56px 92px 92px;
-  align-items: center;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.mt-tile {
+  display: flex;
+  flex-direction: column;
   gap: 10px;
-  padding: 8px 0;
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
 }
 
-.hero-outcomes li + li {
-  border-top: 1px solid var(--border);
+.mt-tile:hover,
+.mt-race:hover {
+  border-color: var(--border-strong);
+  box-shadow: 0 4px 16px rgba(16, 24, 40, 0.08);
+  transform: translateY(-1px);
 }
 
-.hero-outcome-name {
+.mt-tile-label {
+  color: var(--text-2);
   font-weight: 600;
 }
 
-.hero-outcome-chance {
-  font-size: 18px;
-  font-weight: 700;
+.mt-tile-big {
+  align-self: flex-start;
+  font-size: 44px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.03em;
   font-variant-numeric: tabular-nums;
-  text-align: right;
-  padding: 0 2px;
 }
 
-.hero-outcomes .price-btn {
-  min-height: 38px;
-  font-size: 13px;
-}
-
-.hero-reveal .reveal-label {
-  color: var(--green);
-  font-size: 13px;
-  text-align: right;
-  white-space: nowrap;
-}
-
-.hero-reveal .price-btn.vote {
-  grid-column: 4 / 6;
-}
-
-.hero-foot {
+.mt-split {
   display: flex;
-  flex-wrap: wrap;
+  gap: 2px;
+  height: 8px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.mt-split span {
+  transition: width 0.6s ease;
+}
+
+.mt-tile-foot {
+  display: flex;
   justify-content: space-between;
-  gap: 8px;
-  margin-top: 16px;
-  padding-top: 14px;
-  border-top: 1px solid var(--border);
   color: var(--text-3);
   font-size: 13px;
   font-variant-numeric: tabular-nums;
 }
 
-.hero-chart {
-  display: flex;
-  align-items: center;
+.mt-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  gap: 12px;
 }
 
-.hero-chart svg {
-  width: 100%;
-  height: auto;
+.mt-seats,
+.mt-turnout {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 24px;
+}
+
+.mt-card-kicker {
+  color: var(--text-3);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.mt-card-title {
+  font-size: 26px;
+  font-weight: 750;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.mt-seatbar {
+  position: relative;
+  display: flex;
+  gap: 2px;
+  height: 40px;
+  margin-top: 8px;
+  border-radius: 8px;
   overflow: visible;
 }
 
+.mt-seatbar span:first-child {
+  border-radius: 8px 0 0 8px;
+}
+
+.mt-seatbar span:nth-child(3) {
+  border-radius: 0 8px 8px 0;
+}
+
+.mt-open {
+  background: repeating-linear-gradient(45deg, #e9ecef, #e9ecef 6px, #f6f7f9 6px, #f6f7f9 12px);
+}
+
+.mt-seatbar i {
+  position: absolute;
+  top: -6px;
+  bottom: -6px;
+  width: 2px;
+  background: var(--text);
+}
+
+.mt-seat-legend {
+  display: flex;
+  justify-content: space-between;
+  color: var(--text-2);
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+}
+
+.mt-seat-legend b {
+  font-size: 20px;
+}
+
+.mt-towin {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.mt-open-note {
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  background: var(--muted-bg);
+  color: var(--text-2);
+}
+
+.mt-cta {
+  align-self: flex-start;
+  min-height: 44px;
+}
+
+.mt-spark {
+  width: 100%;
+  height: auto;
+}
+
+.mt-turnout-rows {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.mt-card-foot {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 6px;
+  color: var(--text-3);
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+
+.mt-section {
+  margin-top: 8px;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.mt-races {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.mt-race {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+  transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+}
+
+.mt-race-title {
+  font-weight: 700;
+}
+
+.mt-race-row {
+  display: flex;
+  justify-content: space-between;
+  color: var(--text-2);
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+
+.mt-race-row i {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-right: 6px;
+  border-radius: 50%;
+}
+
 @media (max-width: 1023px) {
-  .hero {
+  .mt-grid {
     grid-template-columns: minmax(0, 1fr);
-    gap: 16px;
   }
 
-  .hero-chart {
-    order: -1;
+  .mt-races {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
 @media (max-width: 639px) {
-  .hero {
+  .mt-head {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .mt-sub {
+    font-size: 15px;
+  }
+
+  .mt-tiles {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .mt-tile-big {
+    font-size: 36px;
+  }
+
+  .mt-seats,
+  .mt-turnout {
     padding: 18px 16px;
   }
 
-  .hero-title {
-    font-size: 30px;
+  .mt-card-title {
+    font-size: 21px;
   }
 
-  .hero-outcomes li {
-    grid-template-columns: 10px minmax(0, 1fr) minmax(0, 1fr);
-    row-gap: 8px;
+  .mt-cta {
+    align-self: stretch;
   }
 
-  .hero-outcomes .price-btn,
-  .hero-reveal .price-btn.vote {
-    grid-column: auto;
-  }
-
-  .hero-outcomes li > .price-btn.yes {
-    grid-column: 1 / 3;
-  }
-
-  .hero-outcomes li > .price-btn.no {
-    grid-column: 3 / 4;
-  }
-
-  .hero-reveal .price-btn.vote {
-    grid-column: 1 / -1;
+  .mt-races {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
