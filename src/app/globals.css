@@ -1659,7 +1659,7 @@ button {
   padding-bottom: 48px;
 }
 
-.trending-head h2 {
+.trending-head h1 {
   font-size: 24px;
   font-weight: 700;
 }
@@ -1731,305 +1731,127 @@ button {
   background: var(--red-bg);
 }
 
-/* ---------- Midterms hub ---------- */
-
-.mt {
-  display: flex;
-  flex-direction: column;
+/* Hidden admin page */
+.admin {
+  display: grid;
   gap: 20px;
+  max-width: 760px;
+  padding-top: 32px;
+  padding-bottom: 48px;
 }
-
-.mt-head {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 24px;
-  padding: 12px 0 4px;
+.admin-narrow {
+  max-width: 400px;
 }
-
-.mt-kicker {
+.admin h1 {
+  font-size: 24px;
+}
+.admin-head {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
-  gap: 10px;
-  color: var(--text-3);
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+  justify-content: space-between;
 }
-
-.mt-title {
-  margin-top: 10px;
-  font-size: clamp(40px, 6.5vw, 76px);
-  font-weight: 800;
-  line-height: 0.98;
-  letter-spacing: -0.04em;
-}
-
-.mt-sub {
-  margin-top: 12px;
-  max-width: 58ch;
-  color: var(--text-2);
-  font-size: 17px;
-}
-
-.mt-head-cta {
-  min-height: 48px;
-  padding: 0 22px;
-  font-size: 15px;
-}
-
-.mt-tiles {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 12px;
-}
-
-.mt-tile {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+.admin-card {
   padding: 20px;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  background: var(--surface);
-  transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
 }
-
-.mt-tile:hover,
-.mt-race:hover {
-  border-color: var(--border-strong);
-  box-shadow: 0 4px 16px rgba(16, 24, 40, 0.08);
-  transform: translateY(-1px);
+.admin-card h2 {
+  font-size: 16px;
+  margin-bottom: 16px;
 }
-
-.mt-tile-label {
-  color: var(--text-2);
-  font-weight: 600;
-}
-
-.mt-tile-big {
-  align-self: flex-start;
-  font-size: 44px;
-  font-weight: 800;
-  line-height: 1;
-  letter-spacing: -0.03em;
-  font-variant-numeric: tabular-nums;
-}
-
-.mt-split {
-  display: flex;
-  gap: 2px;
-  height: 8px;
-  border-radius: 4px;
-  overflow: hidden;
-}
-
-.mt-split span {
-  transition: width 0.6s ease;
-}
-
-.mt-tile-foot {
-  display: flex;
-  justify-content: space-between;
-  color: var(--text-3);
-  font-size: 13px;
-  font-variant-numeric: tabular-nums;
-}
-
-.mt-grid {
+.admin-form {
   display: grid;
-  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
-  gap: 12px;
-}
-
-.mt-seats,
-.mt-turnout {
-  display: flex;
-  flex-direction: column;
   gap: 14px;
-  padding: 24px;
 }
-
-.mt-card-kicker {
-  color: var(--text-3);
-  font-size: 12px;
+.admin-form label {
+  display: grid;
+  gap: 6px;
   font-weight: 600;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-}
-
-.mt-card-title {
-  font-size: 26px;
-  font-weight: 750;
-  line-height: 1.15;
-  letter-spacing: -0.02em;
-  font-variant-numeric: tabular-nums;
-}
-
-.mt-seatbar {
-  position: relative;
-  display: flex;
-  gap: 2px;
-  height: 40px;
-  margin-top: 8px;
-  border-radius: 8px;
-  overflow: visible;
-}
-
-.mt-seatbar span:first-child {
-  border-radius: 8px 0 0 8px;
-}
-
-.mt-seatbar span:nth-child(3) {
-  border-radius: 0 8px 8px 0;
-}
-
-.mt-open {
-  background: repeating-linear-gradient(45deg, #e9ecef, #e9ecef 6px, #f6f7f9 6px, #f6f7f9 12px);
-}
-
-.mt-seatbar i {
-  position: absolute;
-  top: -6px;
-  bottom: -6px;
-  width: 2px;
-  background: var(--text);
-}
-
-.mt-seat-legend {
-  display: flex;
-  justify-content: space-between;
   color: var(--text-2);
-  font-size: 14px;
-  font-variant-numeric: tabular-nums;
 }
-
-.mt-seat-legend b {
-  font-size: 20px;
-}
-
-.mt-towin {
+.admin-form input,
+.admin-form select {
+  font: inherit;
+  font-weight: 400;
   color: var(--text);
-  font-weight: 600;
-}
-
-.mt-open-note {
-  padding: 12px 14px;
+  padding: 10px 12px;
+  border: 1px solid var(--border-strong);
   border-radius: var(--radius-sm);
-  background: var(--muted-bg);
-  color: var(--text-2);
-}
-
-.mt-cta {
-  align-self: flex-start;
-  min-height: 44px;
-}
-
-.mt-spark {
+  background: var(--surface);
   width: 100%;
-  height: auto;
 }
-
-.mt-turnout-rows {
+.admin-form input:focus-visible,
+.admin-form select:focus-visible {
+  outline: none;
+  box-shadow: var(--focus);
+  border-color: var(--blue);
+}
+.admin-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 8px;
+  gap: 14px;
 }
-
-.mt-card-foot {
+.admin-more {
+  display: grid;
+  gap: 14px;
+}
+.admin-more summary {
+  cursor: pointer;
+  color: var(--blue);
+  font-weight: 600;
+}
+.admin-more[open] summary {
+  margin-bottom: 14px;
+}
+.admin-more > * + * {
+  margin-top: 14px;
+}
+.admin-error {
+  color: var(--red);
+}
+.admin-ok {
+  color: var(--green);
+}
+.admin-ok a,
+.admin-title {
+  color: var(--blue);
+  font-weight: 600;
+}
+.admin-note {
+  color: var(--text-3);
+}
+.admin-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.admin-list li {
   display: flex;
-  flex-wrap: wrap;
+  align-items: center;
   justify-content: space-between;
-  gap: 6px;
+  gap: 12px;
+  padding: 12px 0;
+  border-top: 1px solid var(--border);
+}
+.admin-meta {
   color: var(--text-3);
   font-size: 13px;
-  font-variant-numeric: tabular-nums;
+  margin-top: 2px;
+}
+.admin-delete {
+  color: var(--red);
+}
+@media (max-width: 560px) {
+  .admin-row {
+    grid-template-columns: 1fr;
+  }
 }
 
-.mt-section {
-  margin-top: 8px;
-  font-size: 20px;
-  font-weight: 700;
-}
-
-.mt-races {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 12px;
-}
-
-.mt-race {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  padding: 16px;
-  transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
-}
-
-.mt-race-title {
-  font-weight: 700;
-}
-
-.mt-race-row {
-  display: flex;
-  justify-content: space-between;
+.trending-empty {
+  padding: 32px 24px;
+  text-align: center;
   color: var(--text-2);
-  font-size: 13px;
-  font-variant-numeric: tabular-nums;
 }
 
-.mt-race-row i {
-  display: inline-block;
-  width: 8px;
-  height: 8px;
-  margin-right: 6px;
-  border-radius: 50%;
-}
-
-@media (max-width: 1023px) {
-  .mt-grid {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .mt-races {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-}
-
-@media (max-width: 639px) {
-  .mt-head {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .mt-sub {
-    font-size: 15px;
-  }
-
-  .mt-tiles {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .mt-tile-big {
-    font-size: 36px;
-  }
-
-  .mt-seats,
-  .mt-turnout {
-    padding: 18px 16px;
-  }
-
-  .mt-card-title {
-    font-size: 21px;
-  }
-
-  .mt-cta {
-    align-self: stretch;
-  }
-
-  .mt-races {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
+.trending-empty a {
+  color: var(--blue);
+  font-weight: 600;
 }

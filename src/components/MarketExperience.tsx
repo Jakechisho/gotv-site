@@ -8,7 +8,7 @@ import { RelatedMarkets } from "./RelatedMarkets";
 import { TradingPanel } from "./TradingPanel";
 
 /** The one layout every market page uses. All content comes from the `market` config. */
-export function MarketExperience({ market }: { market: Market }) {
+export function MarketExperience({ market, markets }: { market: Market; markets: Market[] }) {
   return (
     <div className="container market-layout">
       <div className="market-main">
@@ -21,7 +21,7 @@ export function MarketExperience({ market }: { market: Market }) {
         <TradingPanel market={market} />
       </div>
       <div className="market-after">
-        <RelatedMarkets cards={market.related} />
+        <RelatedMarkets cards={market.related} markets={markets} />
         <Disclosure />
       </div>
     </div>
