@@ -1855,3 +1855,8 @@ button {
   color: var(--blue);
   font-weight: 600;
 }
+.admin-hint {
+  font-weight: 400;
+  font-size: 13px;
+  color: var(--text-3);
+}

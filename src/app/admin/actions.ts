@@ -3,7 +3,7 @@
 import { revalidatePath, revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
 import { checkPassword, isAdmin, logIn, logOut } from "@/lib/auth";
-import { CATEGORIES, DEFAULT_END_DATE, DEFAULT_SUBHEAD, slugify, type MarketInput } from "@/lib/markets";
+import { DEFAULT_END_DATE, DEFAULT_SUBHEAD, slugify, type MarketInput } from "@/lib/markets";
 import { MARKETS_TAG, readInputs, writeInputs } from "@/lib/store";
 
 export type FormState = { error?: string; created?: string };
@@ -41,12 +41,14 @@ export async function createMarket(_: FormState, form: FormData): Promise<FormSt
   if (!title || !headline || !optionA || !optionB) {
     return { error: "Market name, headline, and both options are required." };
   }
-  const categoryInput = text(form, "category", 40);
-  const category = (CATEGORIES as readonly string[]).includes(categoryInput) ? categoryInput : "Politics";
   const chance = Number(form.get("chanceA"));
   const chanceA = Number.isFinite(chance) && chance >= 1 && chance <= 99 ? Math.round(chance) : 50;
 
   const inputs = await readInputs();
+  // Reuse an existing category's spelling so "sports" and "Sports" share one tab.
+  const categoryInput = text(form, "category", 30).replace(/\s+/g, " ") || "Politics";
+  const category =
+    inputs.find((m) => slugify(m.category) === slugify(categoryInput))?.category ?? categoryInput;
   const base = slugify(text(form, "slug", 60) || title) || "market";
   let slug = base;
   for (let n = 2; RESERVED.has(slug) || inputs.some((m) => m.slug === slug); n++) slug = `${base}-${n}`;

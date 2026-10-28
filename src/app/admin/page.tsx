@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { adminConfigured, isAdmin } from "@/lib/auth";
-import { CATEGORIES, DEFAULT_END_DATE, DEFAULT_SUBHEAD } from "@/lib/markets";
+import { CATEGORIES, DEFAULT_END_DATE, DEFAULT_SUBHEAD, categoriesOf } from "@/lib/markets";
 import { getMarkets } from "@/lib/store";
 import { deleteMarket, logout } from "./actions";
 import { CreateForm, DeleteButton, LoginForm } from "./forms";
@@ -43,7 +43,7 @@ export default async function AdminPage() {
 
       <section className="card admin-card" aria-labelledby="new-h">
         <h2 id="new-h">New market</h2>
-        <CreateForm categories={[...CATEGORIES]} defaultSubhead={DEFAULT_SUBHEAD} defaultEndDate={DEFAULT_END_DATE} />
+        <CreateForm categories={[...new Set([...categoriesOf(markets), ...CATEGORIES])]} defaultSubhead={DEFAULT_SUBHEAD} defaultEndDate={DEFAULT_END_DATE} />
       </section>
 
       <section className="card admin-card" aria-labelledby="live-h">

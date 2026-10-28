@@ -18,7 +18,8 @@ admin page. Without a Blob token, markets are saved to `.data/markets.json`.
 ## Creating markets
 
 Go to `/admin` (not linked anywhere, not indexed) and log in with `ADMIN_PASSWORD`.
-Enter the market name, headline, and two options; category, odds, subhead,
+Enter the market name, headline, two options, and a category (pick one or type a
+new one; each category in use gets a nav tab and a page at `/category/<name>`). Odds, subhead,
 resolve date, and page address are optional. Markets are saved as one JSON file in
 Vercel Blob (`BLOB_READ_WRITE_TOKEN`, store `gotv-markets`), so they survive deploys,
 and pages refresh as soon as you publish or delete.
