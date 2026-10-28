@@ -4,8 +4,6 @@ import { MarketGrid } from "@/components/MarketGrid";
 import { getMarkets } from "@/lib/store";
 
 export const metadata = { title: "Trending markets" };
-// A different market is featured on each visit, so render per request (markets stay cached).
-export const dynamic = "force-dynamic";
 
 /** Trending: every market created in the admin page, newest first. */
 export default async function TrendingPage() {

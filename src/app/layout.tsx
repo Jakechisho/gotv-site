@@ -14,6 +14,10 @@ export const metadata: Metadata = {
     "GOTV is a nonpartisan get-out-the-vote campaign styled as a prediction market. It is not a betting platform. Every trade leads to Vote.gov.",
 };
 
+// Every page lists the saved markets, which change without a deploy, so pages render per
+// request. The read goes through the Blob CDN, so this stays cheap.
+export const dynamic = "force-dynamic";
+
 export const viewport: Viewport = { themeColor: "#ffffff" };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {

@@ -1,10 +1,10 @@
 "use server";
 
-import { revalidatePath, revalidateTag } from "next/cache";
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { checkPassword, isAdmin, logIn, logOut } from "@/lib/auth";
 import { DEFAULT_END_DATE, DEFAULT_SUBHEAD, slugify, type MarketInput } from "@/lib/markets";
-import { MARKETS_TAG, readInputs, writeInputs } from "@/lib/store";
+import { readInputs, writeInputs } from "@/lib/store";
 
 export type FormState = { error?: string; created?: string };
 
@@ -16,7 +16,6 @@ function text(form: FormData, key: string, max: number) {
 }
 
 function refresh() {
-  revalidateTag(MARKETS_TAG);
   revalidatePath("/", "layout");
 }
 

@@ -3,17 +3,13 @@ import { notFound } from "next/navigation";
 import { Disclosure } from "@/components/Disclosure";
 import { MarketGrid } from "@/components/MarketGrid";
 import { slugify } from "@/lib/markets";
-import { getMarkets } from "@/lib/store";
-
-// One page per category in use; rendered on first visit, refreshed when markets change.
-export function generateStaticParams() {
-  return [];
-}
+import { getMarketsWith } from "@/lib/store";
 
 type Props = { params: Promise<{ slug: string }> };
 
 async function load(slug: string) {
-  const markets = (await getMarkets()).filter((m) => slugify(m.category) === slug);
+  const inCategory = (m: { category: string }) => slugify(m.category) === slug;
+  const markets = (await getMarketsWith((ms) => ms.some(inCategory))).filter(inCategory);
   return { name: markets[0]?.category, markets };
 }
 
