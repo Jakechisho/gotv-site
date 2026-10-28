@@ -1,17 +1,17 @@
 import Link from "next/link";
-import { getMarket, leadChance, type RelatedCard } from "@/lib/markets";
+import { leadChance, type Market, type RelatedCard } from "@/lib/markets";
 import { CategoryIcon } from "./Icons";
 import { LiveGauge, LiveVolume } from "./Live";
 import { VoteLink } from "./VoteLink";
 
-export function RelatedMarkets({ cards }: { cards: RelatedCard[] }) {
+export function RelatedMarkets({ cards, markets }: { cards: RelatedCard[]; markets: Market[] }) {
   return (
     <section aria-labelledby="related-heading" className="related">
       <h2 id="related-heading">Related markets</h2>
       <ul className="related-grid">
         {cards.map((card) => {
           if (card.kind === "market") {
-            const m = getMarket(card.slug);
+            const m = markets.find((x) => x.slug === card.slug);
             if (!m) return null;
             const chance = leadChance(m);
             return (

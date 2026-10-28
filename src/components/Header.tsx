@@ -3,21 +3,16 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useId, useMemo, useState } from "react";
-import { marketList } from "@/lib/markets";
+import { navItems, type Market } from "@/lib/markets";
 import { LogoMark, SearchIcon } from "./Icons";
 import { VoteLink } from "./VoteLink";
-
-const NAV = [
-  { label: "Trending", href: "/" },
-  ...marketList.map((m) => ({ label: m.category, href: `/${m.slug}` })),
-];
 
 function isActive(pathname: string, href: string) {
   if (href === "/") return pathname === "/";
   return pathname === href || pathname === `${href}/`;
 }
 
-function MarketSearch() {
+function MarketSearch({ marketList }: { marketList: Market[] }) {
   const router = useRouter();
   const [query, setQuery] = useState("");
   const [focused, setFocused] = useState(false);
@@ -29,7 +24,7 @@ function MarketSearch() {
     return marketList.filter((m) =>
       [m.title, m.category, ...m.breadcrumb].some((s) => s.toLowerCase().includes(q)),
     );
-  }, [query]);
+  }, [query, marketList]);
 
   const showResults = focused && query.trim().length > 0;
 
@@ -83,8 +78,9 @@ function MarketSearch() {
   );
 }
 
-export function Header() {
+export function Header({ markets }: { markets: Market[] }) {
   const pathname = usePathname() ?? "";
+  const nav = navItems(markets);
 
   return (
     <header className="site-header">
@@ -93,7 +89,7 @@ export function Header() {
           <LogoMark />
           <span className="wordmark">GOTV</span>
         </Link>
-        <MarketSearch />
+        <MarketSearch marketList={markets} />
         <div className="account">
           <VoteLink className="btn btn-ghost" aria-label="Log in (opens Vote.gov)">
             Log In
@@ -105,7 +101,7 @@ export function Header() {
       </div>
       <nav className="category-nav" aria-label="Market categories">
         <ul className="container">
-          {NAV.map((item) => {
+          {nav.map((item) => {
             const active = isActive(pathname, item.href);
             return (
               <li key={item.label}>

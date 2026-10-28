@@ -1,8 +1,9 @@
 import Link from "next/link";
+import { navItems, type Market } from "@/lib/markets";
 import { LogoMark } from "./Icons";
 import { VoteLink } from "./VoteLink";
 
-export function Footer() {
+export function Footer({ markets }: { markets: Market[] }) {
   return (
     <footer className="site-footer">
       <div className="container footer-inner">
@@ -13,18 +14,11 @@ export function Footer() {
         </div>
         <nav aria-label="Footer">
           <ul className="footer-links">
-            <li>
-              <Link href="/">Trending</Link>
-            </li>
-            <li>
-              <Link href="/politics">Politics</Link>
-            </li>
-            <li>
-              <Link href="/weather">Weather</Link>
-            </li>
-            <li>
-              <Link href="/economy">Economy</Link>
-            </li>
+            {navItems(markets).map((item) => (
+              <li key={item.label}>
+                <Link href={item.href}>{item.label}</Link>
+              </li>
+            ))}
             <li>
               <a href="#about">About GOTV</a>
             </li>

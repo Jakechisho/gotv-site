@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { ReturnModal } from "@/components/ReturnModal";
+import { getMarkets } from "@/lib/store";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"], display: "swap", variable: "--font-inter" });
@@ -15,16 +16,17 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = { themeColor: "#ffffff" };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const markets = await getMarkets();
   return (
     <html lang="en" className={inter.variable}>
       <body>
         <a href="#main" className="skip-link">
           Skip to content
         </a>
-        <Header />
+        <Header markets={markets} />
         <main id="main">{children}</main>
-        <Footer />
+        <Footer markets={markets} />
         <ReturnModal />
       </body>
     </html>
