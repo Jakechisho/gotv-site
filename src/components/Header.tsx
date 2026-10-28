@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useId, useMemo, useState } from "react";
-import { navItems, type Market } from "@/lib/markets";
+import { categoryHref, navItems, type Market } from "@/lib/markets";
 import { LogoMark, SearchIcon } from "./Icons";
 import { VoteLink } from "./VoteLink";
 
@@ -81,6 +81,9 @@ function MarketSearch({ marketList }: { marketList: Market[] }) {
 export function Header({ markets }: { markets: Market[] }) {
   const pathname = usePathname() ?? "";
   const nav = navItems(markets);
+  // On a market page, underline that market's category tab.
+  const current = markets.find((m) => isActive(pathname, `/${m.slug}`));
+  const activePath = current ? categoryHref(current.category) : pathname;
 
   return (
     <header className="site-header">
@@ -102,7 +105,7 @@ export function Header({ markets }: { markets: Market[] }) {
       <nav className="category-nav" aria-label="Market categories">
         <ul className="container">
           {nav.map((item) => {
-            const active = isActive(pathname, item.href);
+            const active = isActive(activePath, item.href);
             return (
               <li key={item.label}>
                 <Link

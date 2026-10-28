@@ -65,20 +65,21 @@ export function CreateForm({ categories, defaultSubhead, defaultEndDate }: Creat
         </label>
       </div>
 
+      <label>
+        Category
+        <input name="category" list="category-options" maxLength={30} placeholder="Pick one or type a new one" />
+        <datalist id="category-options">
+          {categories.map((c) => <option key={c} value={c} />)}
+        </datalist>
+        <span className="admin-hint">A new category gets its own tab on the site. Left blank, it’s Politics.</span>
+      </label>
+
       <details className="admin-more">
         <summary>More options</summary>
-        <div className="admin-row">
-          <label>
-            Category
-            <select name="category" defaultValue={categories[0]}>
-              {categories.map((c) => <option key={c}>{c}</option>)}
-            </select>
-          </label>
-          <label>
-            Option 1 odds (%)
-            <input name="chanceA" type="number" min={1} max={99} defaultValue={50} />
-          </label>
-        </div>
+        <label>
+          Option 1 odds (%)
+          <input name="chanceA" type="number" min={1} max={99} defaultValue={50} />
+        </label>
         <label>
           Subhead
           <input name="subhead" maxLength={240} placeholder={defaultSubhead} />

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import type { Market } from "@/lib/markets";
+import { categoryHref, type Market } from "@/lib/markets";
 import { LiveVolume } from "./Live";
 import { BookmarkIcon, CategoryIcon, ChevronIcon, ClockIcon, ShareIcon } from "./Icons";
 
@@ -39,7 +39,7 @@ export function MarketHeader({ market }: { market: Market }) {
             return (
               <li key={crumb}>
                 {i === 0 ? (
-                  <Link href={`/${market.slug}`}>{crumb}</Link>
+                  <Link href={categoryHref(market.category)}>{crumb}</Link>
                 ) : (
                   <span aria-current={last ? "page" : undefined}>{crumb}</span>
                 )}

@@ -52,7 +52,7 @@ export type RelatedCard =
 
 export type Market = {
   slug: string;
-  /** Header category; the nav links each category to its newest market. */
+  /** Any name; every category in use gets a tab and a page at /category/<slug>. */
   category: string;
   breadcrumb: string[];
   icon: CategoryIcon;
@@ -79,7 +79,8 @@ export type Market = {
   };
 };
 
-export const CATEGORIES = ["Politics", "Weather", "Economy", "Community"] as const;
+/** Suggested in the admin form; any other name works too. */
+export const CATEGORIES = ["Politics", "Weather", "Economy", "Community"];
 
 const CATEGORY_ICON: Record<string, CategoryIcon> = {
   Politics: "politics",
@@ -221,16 +222,21 @@ export function buildMarket(input: MarketInput, all: MarketInput[]): Market {
   };
 }
 
-/** Trending, then one link per category, pointing at that category's newest market. */
+export function categoryHref(category: string) {
+  return `/category/${slugify(category) || "other"}`;
+}
+
+/** Categories in use, in order of their newest market. */
+export function categoriesOf(markets: Market[]) {
+  return [...new Set(markets.map((m) => m.category))];
+}
+
+/** Trending, then one tab per category in use. */
 export function navItems(markets: Market[]) {
-  const seen = new Set<string>();
-  const items = [{ label: "Trending", href: "/" }];
-  for (const m of markets) {
-    if (seen.has(m.category)) continue;
-    seen.add(m.category);
-    items.push({ label: m.category, href: `/${m.slug}` });
-  }
-  return items;
+  return [
+    { label: "Trending", href: "/" },
+    ...categoriesOf(markets).map((c) => ({ label: c, href: categoryHref(c) })),
+  ];
 }
 
 /** Lead (first-series) odds, used on related-market cards. */
