@@ -2,7 +2,7 @@ import "server-only";
 
 import { promises as fs } from "fs";
 import path from "path";
-import { list, put } from "@vercel/blob";
+import { get, put } from "@vercel/blob";
 import { unstable_cache } from "next/cache";
 import { buildMarket, type Market, type MarketInput } from "./markets";
 
@@ -24,13 +24,11 @@ export async function readInputs(): Promise<MarketInput[]> {
       return [];
     }
   }
-  const { blobs } = await list({ prefix: BLOB_PATH, limit: 1 });
-  const blob = blobs.find((b) => b.pathname === BLOB_PATH);
-  if (!blob) return [];
-  // The version query skips the CDN copy left over from the previous write.
-  const res = await fetch(`${blob.url}?v=${new Date(blob.uploadedAt).getTime()}`, { cache: "no-store" });
-  if (!res.ok) throw new Error(`Could not read markets (${res.status})`);
-  return res.json();
+  // Read from origin, not the CDN: the CDN can serve the file as it was before the
+  // last save for up to a minute, which hid new markets and could drop them on the next save.
+  const res = await get(BLOB_PATH, { access: "public", useCache: false });
+  if (!res || res.statusCode !== 200) return [];
+  return new Response(res.stream).json();
 }
 
 export async function writeInputs(inputs: MarketInput[]) {
