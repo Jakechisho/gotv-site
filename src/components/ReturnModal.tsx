@@ -27,7 +27,7 @@ export function ReturnModal() {
       <Dialog.Portal>
         <Dialog.Overlay className="modal-overlay" />
         <Dialog.Content className="modal" aria-describedby="return-modal-body">
-          <p className="modal-eyebrow">THE ODDS AREN’T THE OUTCOME</p>
+          <p className="modal-eyebrow">ODDS AREN’T THE OUTCOME</p>
           <Dialog.Title className="modal-title">
             This is only the landing page. Voting is the point.
           </Dialog.Title>

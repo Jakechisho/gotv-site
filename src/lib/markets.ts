@@ -188,16 +188,6 @@ export function buildMarket(input: MarketInput, all: MarketInput[]): Market {
         yesPrice: b,
         noPrice: Math.min(99, a + 1),
       },
-      {
-        kind: "reveal",
-        id: "voters",
-        name: "People who vote",
-        detail: "Not for sale",
-        initials: "V",
-        color: "#0f9d58",
-        label: "Decides it",
-        cta: "Make a plan to vote",
-      },
     ],
     rules: [
       `This market resolves on ${input.endDate} to whichever outcome actually happens.`,
