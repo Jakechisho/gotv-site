@@ -3,20 +3,22 @@ import "server-only";
 import { promises as fs } from "fs";
 import path from "path";
 import { get, put } from "@vercel/blob";
-import { unstable_cache } from "next/cache";
+import { cache } from "react";
 import { buildMarket, type Market, type MarketInput } from "./markets";
 
 // Created markets live in one JSON file in Vercel Blob, so they survive deploys.
 // Without a Blob token (local dev) they go to .data/markets.json instead.
+//
+// Public pages read the file through the Blob CDN (free, fast, at most a minute
+// behind a save). The admin page and saves read it from origin, so they are never stale.
 
 const BLOB_PATH = "markets/markets.json";
 const LOCAL_PATH = path.join(process.cwd(), ".data", "markets.json");
-export const MARKETS_TAG = "markets";
 
 const useBlob = () => Boolean(process.env.BLOB_READ_WRITE_TOKEN);
 
-/** Reads the stored inputs straight from storage, skipping every cache. */
-export async function readInputs(): Promise<MarketInput[]> {
+/** Reads the stored inputs. `fresh` skips the CDN and reads from origin. */
+export async function readInputs(fresh = true): Promise<MarketInput[]> {
   if (!useBlob()) {
     try {
       return JSON.parse(await fs.readFile(LOCAL_PATH, "utf8"));
@@ -24,9 +26,7 @@ export async function readInputs(): Promise<MarketInput[]> {
       return [];
     }
   }
-  // Read from origin, not the CDN: the CDN can serve the file as it was before the
-  // last save for up to a minute, which hid new markets and could drop them on the next save.
-  const res = await get(BLOB_PATH, { access: "public", useCache: false });
+  const res = await get(BLOB_PATH, { access: "public", useCache: !fresh });
   if (!res || res.statusCode !== 200) return [];
   return new Response(res.stream).json();
 }
@@ -47,15 +47,17 @@ export async function writeInputs(inputs: MarketInput[]) {
   });
 }
 
-/** Cached until the admin page saves a change (it revalidates MARKETS_TAG). */
-const cachedInputs = unstable_cache(readInputs, ["market-inputs"], { tags: [MARKETS_TAG] });
-
-/** Every market, newest first. */
-export async function getMarkets(): Promise<Market[]> {
-  const inputs = (await cachedInputs()).slice().sort((a, b) => b.createdAt - a.createdAt);
+/** Every market, newest first. Deduplicated within one request. */
+export const getMarkets = cache(async (fresh = false): Promise<Market[]> => {
+  const inputs = (await readInputs(fresh)).slice().sort((a, b) => b.createdAt - a.createdAt);
   return inputs.map((input) => buildMarket(input, inputs));
-}
+});
 
-export async function getMarket(slug: string): Promise<Market | undefined> {
-  return (await getMarkets()).find((m) => m.slug === slug);
+/**
+ * Markets for a page that needs a specific one. If the CDN copy doesn't have it yet
+ * (it was just created), read from origin instead of showing a 404.
+ */
+export async function getMarketsWith(has: (markets: Market[]) => boolean): Promise<Market[]> {
+  const markets = await getMarkets();
+  return has(markets) ? markets : getMarkets(true);
 }

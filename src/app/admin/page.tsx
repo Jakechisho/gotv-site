@@ -31,7 +31,7 @@ export default async function AdminPage() {
     );
   }
 
-  const markets = await getMarkets();
+  const markets = await getMarkets(true);
   return (
     <div className="container admin">
       <div className="admin-head">
